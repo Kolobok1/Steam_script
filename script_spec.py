@@ -1,13 +1,8 @@
 import json,pickle
-from steampy.models import GameOptions, Currency
 from bs4 import BeautifulSoup
 import requests, re
 import time
 from headers import headers
-
-def buy_item(steam_client,item,item_id,price):
-    print('нада')
-    response = steam_client.market.buy_item(item, item_id, 5, 15, GameOptions.DOTA2, Currency.RUB)
 
 def companing(item_url):
     try:
@@ -31,7 +26,6 @@ def companing(item_url):
         price = round(price,2)
         price_data[0] = price
         if price_data[0] > price_data[1]:
-            # buy_item()
             return price_data
         else:
             return None
@@ -42,8 +36,6 @@ def companing(item_url):
     
 
 def main():
-    with open(f"steamClient.pkl", 'rb') as file:
-        steam_client = pickle.load(file)
     
     with open('items_list.json', 'r', encoding='utf-8') as fh:
         item_list = json.load(fh)
@@ -55,17 +47,13 @@ def main():
         price_data = companing(item_url)
 
         if price_data != None:
-            # item_id = item_list[item]['id']
-            # price = price_data[0]
-            # buy_item(steam_client,item,item_id,price)
             print(item,' ', item_list[item]['url'])
             price = price_data[0] - price_data[1] 
             price = round(price,2)
             print(price, '\n')
         else:
             print('не нада')
-        # time.sleep(1)
-        
+
 if __name__ == "__main__":
     main()
     
