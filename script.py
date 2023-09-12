@@ -89,7 +89,7 @@ def purchase_order(item_list,item,proxies,n):
         'two_factor': '0',
     }
 
-    response = requests.get('https://steamcommunity.com/market/itemordershistogram', params=params, headers=headers, proxies=proxies).text #, proxies=proxies,  timeout=5,
+    response = requests.get('https://steamcommunity.com/market/itemordershistogram', params=params, headers=headers, proxies=proxies).text 
 
     soup = BeautifulSoup(response, "lxml")
     
@@ -103,7 +103,7 @@ def purchase_order(item_list,item,proxies,n):
     json.dump(item_list,file)
     file.close()
     
-    # переводим из чтроки в число
+    # переводим из строки в число
     price_order_buy = re.findall(r'\d+', price) 
     if len(price_order_buy) == 1:
         price_order_buy = price_order_buy + [0]
